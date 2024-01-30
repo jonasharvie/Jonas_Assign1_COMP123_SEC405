@@ -8,6 +8,19 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * COMP 123 Programming 2
+ * Section 405
+ * Winter 2024
+ * Group 4
+ * Assignment 1
+ * Due Feb 5
+ * Team Members:
+ * Jonas Harvie
+ * Farhan Rahman
+ * Maharaj Nath
+ */
+
 namespace Jonas_Assign1_COMP123_SEC405
 {
     enum Audience {world, group, special}
