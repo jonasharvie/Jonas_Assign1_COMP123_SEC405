@@ -22,32 +22,23 @@ namespace Jonas_Assign1_COMP123_SEC405
             TikTok tiktok2 = new TikTok("Jonas", 55, "#ILoveThisClass", Audience.world);
             Console.WriteLine(tiktok2);
 
-            TikTokManager.Initialize();
-
-            /*
-            string filename;
-            filename = "C:\\01_desktop\\02centennialcollege\\02_Winter_2024\\COMP123 Programming 2\\Assignment1_due_Feb_5\\tik toks.txt";
-            Console.WriteLine("Enter the file path with the file name: ");
-            //filename = Console.ReadLine();
-
-            TextReader reader = new StreamReader(filename); //Declare and initialise a t
-            List<TikTok> TikTokList = new List<TikTok>(); //list to store the objects
-
-            string line = reader.ReadLine(); //read the first line
-            while (line != null) //read the first line
+            Console.WriteLine("do you want to import an external file to test the TikTokManager? [y/n]");
+            if (Console.ReadLine() == "y")
             {
-                //Console.WriteLine($"{line}");
-                TikTokList.Add(TikTok.Parse(line));
-                line = reader.ReadLine();
+                TikTokManager.TokTokManager();
+                TikTokManager.Show();
             }
-            reader.Close();
-
-            foreach (var medal in TikTokList)
+            else
             {
-                Console.WriteLine($"{medal}");
-                
+                TikTokManager.Initialize();
+                TikTokManager.Show();
+                TikTokManager.Show("covid");
+                TikTokManager.Show(20);
+                TikTokManager.Show(Audience.world);
             }
-            */
+            
+
+            
 
         }
     }
@@ -82,7 +73,7 @@ namespace Jonas_Assign1_COMP123_SEC405
         }
         public override string ToString()
         {      
-            return $"ID: {Id}\nOriginator: {Originator}\nHashTag: {HashTag}\nAudience: {audience}\n";
+            return $"ID: {Id} Originator: {Originator} Length: {Length} HashTag: {HashTag} Audience: {audience}\n";
         }
 
         public static TikTok Parse(string line)
@@ -101,25 +92,23 @@ namespace Jonas_Assign1_COMP123_SEC405
 
     static class TikTokManager
     {
-        public static List<TikTok> TIKTOKS;
+        private static List<TikTok> TIKTOKS;
         public static string FILENAME;
 
-        static void TokTokManager()
+        public static void TokTokManager()
         {
             //a
-            List<TikTok> TIKTOKS = new List<TikTok>();
+            TIKTOKS = new List<TikTok>();
 
             //b
-            string filename;
-            filename = "C:\\01_desktop\\02centennialcollege\\02_Winter_2024\\COMP123 Programming 2\\Assignment1_due_Feb_5\\tik toks.txt";
+            FILENAME = "C:\\01_desktop\\02centennialcollege\\02_Winter_2024\\COMP123 Programming 2\\Assignment1_due_Feb_5\\tik toks.txt";
             Console.WriteLine("Enter the file path with the file name: ");
-            //filename = Console.ReadLine();
+            FILENAME = Console.ReadLine();
 
-            TextReader reader = new StreamReader(filename); //Declare and initialise a t
+            TextReader reader = new StreamReader(FILENAME); //Declare and initialise a t
             string line = reader.ReadLine(); //read the first line
             while (line != null) //read the first line
             {
-                //Console.WriteLine($"{line}");
                 TIKTOKS.Add(TikTok.Parse(line));
                 line = reader.ReadLine();
             }
@@ -128,14 +117,12 @@ namespace Jonas_Assign1_COMP123_SEC405
         static void TokTokManager(string lines)
         {
             //a
-            List<TikTok> TIKTOKS = new List<TikTok>();
+            TIKTOKS = new List<TikTok>();
 
             StringReader reader = new StringReader(lines); //Declare and initialise a t
             string line = reader.ReadLine(); //read the first line
             while (line != null) //read the first line
             {
-                Console.WriteLine("eeeeeeeeeeeeeee");
-                Console.WriteLine($"{line}");
                 TIKTOKS.Add(TikTok.Parse(line));
                 line = reader.ReadLine();
             }
@@ -144,27 +131,52 @@ namespace Jonas_Assign1_COMP123_SEC405
 
         public static void Initialize()
         {
-            List<TikTok> TIKTOKS = new List<TikTok>();
+            
             string testTikToks;
-            testTikToks = "500000\tabhi\t20\tgroup\tcovid\r\n500001\tsameer\t19\tgroup\tcovid\r\n500002\tjoan\t24\tgroup\tsummer heat\r\n500003\tajay\t15\tworld\tbars\r\n500004\tcarl\t21\tworld\tpark";
+            testTikToks = "500000\tJonas3\t20\tgroup\tcovid\r\n500001\tsameer\t19\tgroup\tcovid\r\n500002\tjoan\t24\tgroup\tsummer heat\r\n500003\tajay\t15\tworld\tbars\r\n500004\tcarl\t21\tworld\tpark";
             TokTokManager(testTikToks);
         }
 
         public static void Show()
         {
-
+            Console.WriteLine("show");
+            foreach (TikTok x in TIKTOKS)
+            {
+                Console.WriteLine(x);
+            }
         }
         public static void Show(string tag)
         {
-
+            Console.WriteLine("show only tiktoks with specified tag");
+            foreach (var tiktok in TIKTOKS)
+            {
+                if (tag == tiktok.HashTag)
+                {
+                    Console.WriteLine($"{tiktok}");
+                }
+            }
         }
         public static void Show(int length)
         {
-
+            Console.WriteLine($"show only tiktoks with length greater then {length} seconds");
+            foreach (var tiktok in TIKTOKS)
+            {
+                if (length > tiktok.Length)
+                {
+                    Console.WriteLine($"{tiktok}");
+                }
+            }
         }
         public static void Show(Audience audience)
         {
-
+            Console.WriteLine("show only tiktoks with specified audience");
+            foreach (var tiktok in TIKTOKS)
+            {
+                if (audience == tiktok.audience)
+                {
+                    Console.WriteLine($"{tiktok}");
+                }
+            }
         }
     }
 
